@@ -48,11 +48,13 @@ function askUser(res) {
 		message: "How many would you like to buy?"
 	}])
 	.then(function(answer) {
-		//console.log(res[answer.id-1].stock_quantity)
+
+		// Check if sufficient inventory
 		if (parseInt(answer.quantity) > res[parseInt(answer.id-1)].stock_quantity) {
 			console.log("Sorry, Insufficient quantity")
 			askUser(res);
 		} else {
+			// run function to buy and update product
 			buyProduct(
 				parseInt(answer.id), 
 				res[parseInt(answer.id-1)].stock_quantity-parseInt(answer.quantity), 
@@ -73,18 +75,13 @@ function buyProduct(id, stockQuantity, purchaseQuantity, price) {
 			// console.log("price: " + price);
 			var cost = price*purchaseQuantity;
 
-			console.log("Purchase successfully completed!");
+			console.log("\n----------------------------------------\n")
+			console.log("Purchase successfully completed!\n");
 			console.log("The total cost was: $" + cost);
+			console.log("\n----------------------------------------\n")
 
 			connection.end();
 		}
 	);
-}
-
-
-
-
-
-
-
+} 
 
